@@ -24,6 +24,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 		searchText: '',
 		results: [],
 	})
+	const [showSuggestion, setShowSuggestion] = useState<boolean>(false)
 
 	const { results, searchText } = search
 	const fuse = new Fuse(data, options)
@@ -61,10 +62,15 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 					className="w-full rounded-md border border-solid border-gray-400 p-2 outline-none"
 					placeholder={placeholder}
 					onChange={customDebounce}
-					autoFocus
+					onFocus={() => {
+						setShowSuggestion(true)
+					}}
+					onBlur={() => {
+						setShowSuggestion(false)
+					}}
 				/>
 			</form>
-			<SearchResults searchText={searchText} listData={results} />
+			{showSuggestion && <SearchResults searchText={searchText} listData={results} />}
 		</div>
 	)
 }

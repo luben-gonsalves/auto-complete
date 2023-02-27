@@ -1,7 +1,7 @@
-import { sum } from 'utils/sum'
+import { sum } from '../sum'
 
 describe('sum', () => {
-	it('s', () => {
+	it('sum', () => {
 		expect(sum(3, 5)).toEqual(8)
 	})
 })
