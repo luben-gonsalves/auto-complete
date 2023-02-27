@@ -1,4 +1,4 @@
-# Doctorly UI Task Documentation
+# Autocomplete
 
 ## Project Title
 
@@ -6,7 +6,7 @@ Autocomplete Feature
 
 ## Project Description
 
-This project is a Simple Autocomplete developed React.
+This project is a Simple Autocomplete developed by React & Typescript.
 
 ## Tools used
 

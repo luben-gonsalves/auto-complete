@@ -28,7 +28,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 	})
 	const [showSuggestion, setShowSuggestion] = useState<boolean>(false)
 
-	const { results } = search
+	const { results, searchText } = search
 	const fuse = new Fuse(data, options)
 
 	const handeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 				}}
 			>
 				<input
-					className="w-full rounded-md border border-solid border-gray-400 p-2 outline-none"
+					className="w-full rounded-md border border-solid border-gray-400 p-2 outline-none focus:border-blue-300"
 					placeholder={placeholder}
 					onChange={customDebounce}
 					onFocus={() => {
@@ -61,7 +61,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 					}}
 				/>
 			</form>
-			{showSuggestion && results.length > 0 ? <SearchResults listData={results} /> : null}
+			{showSuggestion && searchText.length > 0 ? <SearchResults listData={results} /> : null}
 		</div>
 	)
 }
