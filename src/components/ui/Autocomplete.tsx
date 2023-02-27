@@ -1,12 +1,14 @@
-import Fuse from 'fuse.js'
 import React, { FunctionComponent, useState } from 'react'
+import Fuse from 'fuse.js'
 import { Data } from 'src/types/ui'
 
 import SearchResults from './SearchResults'
+import { debounce } from '../../utils/debounce'
 
 const options: Fuse.IFuseOptions<Data> = {
 	keys: ['name'],
 }
+
 interface Props {
 	placeholder?: string
 	minQueryLength?: number
@@ -26,7 +28,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 	})
 	const [showSuggestion, setShowSuggestion] = useState<boolean>(false)
 
-	const { results, searchText } = search
+	const { results } = search
 	const fuse = new Fuse(data, options)
 
 	const handeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,17 +38,6 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 			localStorage.setItem('cachedResults', JSON.stringify(results))
 		}
 		setSearch({ searchText: value, results })
-	}
-
-	function debounce(func: (e: React.ChangeEvent<HTMLInputElement>) => void, limiter: number) {
-		let timer: any = null
-		return function (...args: any) {
-			const context = this
-			clearTimeout(timer)
-			timer = setTimeout(function () {
-				func.apply(context, args)
-			}, limiter)
-		}
 	}
 
 	const customDebounce = debounce(handeChange, debounceDelayTime)
@@ -70,7 +61,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 					}}
 				/>
 			</form>
-			{showSuggestion && <SearchResults searchText={searchText} listData={results} />}
+			{showSuggestion && results.length > 0 ? <SearchResults listData={results} /> : null}
 		</div>
 	)
 }

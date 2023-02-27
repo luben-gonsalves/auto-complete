@@ -3,6 +3,6 @@ export interface Data {
 	amountValue: number
 	pzn: string
 	name: string
-	strengthUnit: string
-	strengthValue: number
+	strengthUnit: string | null
+	strengthValue: number | null
 }
