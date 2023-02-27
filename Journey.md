@@ -114,18 +114,21 @@ npm start failed because of import/export error had to add type="module" in the 
 
     and also installed `prettier-plugin-tailwindcss` for sorting the classes
 
-# Building Autocomplete
+# System Design Architecture
 
 ## Some thought before starting to build the application?
 
-Do we need to search only by name or by other fields?
-Mobile responsive?
+1. What kind of results are supported ? Text, image, media ?
+2. Do we need to support fuzzy search ?
+3. is it mobile responsive?
 
 ## High level architecture design
 
 1. Inputbox for searching
 2. Result UI for showing search result
+   - Handle selection of result
 3. Cache to store previous query result
+   - store the result of previous query
 
 ### Data model
 
