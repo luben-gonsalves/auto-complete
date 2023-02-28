@@ -17,7 +17,7 @@ interface Props {
 	cacheSize?: number
 	cacheExpiration?: number
 	getResults?: Promise<Data[]>
-	renderResults?: FunctionComponent
+	customResultComponent?: FunctionComponent
 	data: Data[]
 }
 
@@ -26,6 +26,7 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 		searchText: '',
 		results: [],
 	})
+
 	const [showSuggestion, setShowSuggestion] = useState<boolean>(false)
 
 	const { results, searchText } = search
@@ -34,12 +35,8 @@ function Autocomplete({ data, placeholder, maxResults = 20, debounceDelayTime = 
 	const handeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = e.target.value
 		const results = fuse.search(value, { limit: maxResults }).map((fuseItem) => fuseItem.item)
-		if (results.length > 0) {
-			localStorage.setItem('cachedResults', JSON.stringify(results))
-		}
 		setSearch({ searchText: value, results })
 	}
-
 	const customDebounce = debounce(handeChange, debounceDelayTime)
 
 	return (
